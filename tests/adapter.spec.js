@@ -9,8 +9,8 @@ describe('adapter', function() {
   describe('class', function() {
 
     it('has payload middleware', function() {
-      let middleware = LegacyAdapter.middleware;
-      expect(middleware[6].name).to.eq('PayloadMiddleware');
+      let middleware = LegacyAdapter.middleware.configs;
+      expect(middleware[6][0].name).to.eq('PayloadMiddleware');
     });
 
   });

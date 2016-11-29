@@ -365,9 +365,8 @@ SystemJS.config({
     "github:coalescejs/coalesce2@dev": {
       "map": {
         "lodash": "npm:lodash@4.16.6",
-        "whatwg-fetch": "npm:whatwg-fetch@0.11.1",
+        "whatwg-fetch": "npm:whatwg-fetch@2.0.1",
         "inflection": "npm:inflection@1.10.0",
-        "immutable": "npm:immutable@3.8.1",
         "qs": "npm:qs@6.3.0"
       }
     },

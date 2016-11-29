@@ -157,9 +157,6 @@
       "npm:ms@0.7.1": {
         "jspmNodeConversion": false,
         "format": "cjs"
-      },
-      "npm:whatwg-fetch@0.11.1": {
-        "jspmNodeConversion": false
       }
     }
   },

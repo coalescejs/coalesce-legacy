@@ -1,5 +1,5 @@
 import DefaultContainer from 'coalesce/default-container';
-import Model from 'coalesce/model';
+import Model from 'coalesce-legacy/model';
 
 export class User extends Model {}
 User.defineSchema({
@@ -38,7 +38,7 @@ Post.defineSchema({
       kind: 'belongsTo'
     },
     comments: {
-      type: 'post',
+      type: 'comment',
       kind: 'hasMany'
     }
   }

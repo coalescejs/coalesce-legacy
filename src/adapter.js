@@ -2,13 +2,10 @@ import Adapter from 'coalesce/adapter';
 
 import PayloadMiddleware from './middleware/payload';
 
-import {clone} from 'lodash';
-
-let middleware = clone(Adapter.middleware);
-middleware.splice(6, 0, PayloadMiddleware);
+import MetaMiddleware from 'coalesce/middleware/meta';
 
 export default class LegacyAdapter extends Adapter {
 
-  static middleware = middleware;
+  static middleware = Adapter.middleware.insertBefore(MetaMiddleware, PayloadMiddleware);
 
 }

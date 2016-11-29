@@ -8,21 +8,35 @@ import {pluralize, singularize} from 'inflection';
  */
 export default class PayloadMiddleware {
 
-  static singleton = true;
   static dependencies = [Container];
 
   constructor(container) {
     this.container = container;
   }
 
-  async call({entity, session}, next) {
+  async call(ctx, next) {
+    let {entity, session, body} = ctx;
+
+    if(body && ctx.serialize !== false && entity.isModel) {
+      ctx.body = {
+        [entity.typeKey]: ctx.body
+      };
+    }
+
     let hash = await next();
+
+    if(ctx.deserialize === false) {
+      return hash;
+    }
+
     let primaryPayload;
 
     for(var key in hash) {
       let value = hash[key];
 
-      if(this.isPrimaryKey(entity, key)) {
+      if(key === 'meta' || key === 'error') {
+        // TODO
+      } else if(this.isPrimaryKey(entity, key)) {
         primaryPayload = value;
       } else {
         this.sideload(key, value, session);
@@ -41,7 +55,7 @@ export default class PayloadMiddleware {
     let serializer = this.container.serializerFor(type);
     for(var hash of value) {
       hash.type = hash.type || type.typeKey;
-      let entity = serializer.deserialize(graph, hash);
+      let entity = serializer.deserialize(hash, graph, {type});
       session.merge(entity);
     }
   }
