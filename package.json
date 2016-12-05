@@ -1,7 +1,17 @@
 {
+  "scripts": {
+    "postinstall": "./node_modules/.bin/jspm install",
+    "start": "./node_modules/.bin/testem",
+    "test": "./node_modules/.bin/testem ci"
+  },
+  "devDependencies": {
+    "jspm": "^0.17.0-beta.31",
+    "phantomjs-prebuilt": "^2.1.13",
+    "testem": "^1.13.0"
+  },
   "jspm": {
-    "name": "coalescejs/coalesce2-legacy",
-    "version": "dev",
+    "name": "coalescejs/coalesce-legacy",
+    "version": "2.0.0-alpha",
     "registry": "github",
     "format": "esm",
     "directories": {
@@ -21,16 +31,18 @@
       }
     },
     "dependencies": {
-      "coalesce": "coalescejs/coalesce2@dev",
+      "coalesce": "coalescejs/coalesce@v2",
       "inflection": "npm:inflection@^1.10.0",
       "lodash": "npm:lodash@^4.16.6"
     },
     "devDependencies": {
+      "babel-polyfill": "npm:babel-polyfill@^6.16.0",
       "chai": "npm:chai@^3.5.0",
       "fetch-mock": "npm:fetch-mock@^5.0.5",
       "babel-plugin-transform-runtime": "npm:babel-plugin-transform-runtime@^6.15.0",
       "babel-preset-stage-0": "npm:babel-preset-stage-0@^6.16.0",
       "babel-runtime": "npm:babel-runtime@^6.18.0",
+      "isomorphic-fetch": "npm:isomorphic-fetch@^2.2.1",
       "mocha-lazy-bdd": "npm:mocha-lazy-bdd@^0.1.0",
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.17"
     },
@@ -105,12 +117,26 @@
           "util": "@node/util"
         }
       },
+      "npm:debug@2.3.3": {
+        "main": "browser.js",
+        "jspmNodeConversion": false,
+        "format": "cjs",
+        "map": {
+          "./browser.js": {
+            "node": "./node.js"
+          },
+          "fs": "@node/fs",
+          "net": "@node/net",
+          "tty": "@node/tty",
+          "util": "@node/util"
+        }
+      },
       "npm:inherits@2.0.3": {
         "ignore": [
           "test.js"
         ]
       },
-      "npm:lodash@4.16.6": {
+      "npm:lodash@4.17.2": {
         "map": {
           "buffer": "@empty",
           "process": "@empty"
@@ -157,11 +183,11 @@
       "npm:ms@0.7.1": {
         "jspmNodeConversion": false,
         "format": "cjs"
+      },
+      "npm:ms@0.7.2": {
+        "jspmNodeConversion": false,
+        "format": "cjs"
       }
     }
-  },
-  "devDependencies": {
-    "jspm": "^0.17.0-beta.31",
-    "testem": "^1.13.0"
   }
 }

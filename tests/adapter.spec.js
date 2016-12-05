@@ -10,7 +10,7 @@ describe('adapter', function() {
 
     it('has payload middleware', function() {
       let middleware = LegacyAdapter.middleware.configs;
-      expect(middleware[6][0].name).to.eq('PayloadMiddleware');
+      expect(middleware[5][0].name).to.eq('PayloadMiddleware');
     });
 
   });
