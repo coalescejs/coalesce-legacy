@@ -1,7 +1,8 @@
 import Container from 'coalesce/container';
 import Graph from 'coalesce/graph';
 
-import {pluralize, singularize} from 'inflection';
+import inflection from 'inflection';
+const {pluralize, singularize} = inflection;
 
 /**
  * Middleware to handle payloads.

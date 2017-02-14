@@ -1,6 +1,7 @@
 import ModelSerializer from 'coalesce/serializers/model';
 
-import {singularize} from 'inflection';
+import inflection from 'inflection';
+const {singularize} = inflection;
 
 export default class LegacyModelSerializer extends ModelSerializer {
 

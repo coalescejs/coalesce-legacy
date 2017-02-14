@@ -582,7 +582,8 @@ SystemJS.config({
         "eventemitter3": "npm:eventemitter3@2.0.2",
         "whatwg-fetch": "npm:whatwg-fetch@2.0.1",
         "lodash": "npm:lodash@4.17.2",
-        "isomorphic-fetch": "npm:isomorphic-fetch@2.2.1"
+        "isomorphic-fetch": "npm:isomorphic-fetch@2.2.1",
+        "plugin-babel": "npm:systemjs-plugin-babel@0.0.21"
       }
     },
     "npm:stream-http@2.5.0": {
