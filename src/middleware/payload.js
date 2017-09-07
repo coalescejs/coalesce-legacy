@@ -2,13 +2,12 @@ import Container from 'coalesce/container';
 import Graph from 'coalesce/graph';
 
 import inflection from 'inflection';
-const {pluralize, singularize} = inflection;
+const { pluralize, singularize } = inflection;
 
 /**
  * Middleware to handle payloads.
  */
 export default class PayloadMiddleware {
-
   static dependencies = [Container];
 
   constructor(container) {
@@ -16,9 +15,9 @@ export default class PayloadMiddleware {
   }
 
   async call(ctx, next) {
-    let {entity, session, body} = ctx;
+    let { entity, session, body } = ctx;
 
-    if(body && ctx.serialize !== false && entity.isModel) {
+    if (body && ctx.serialize !== false && entity.isModel) {
       ctx.body = {
         [entity.typeKey]: ctx.body
       };
@@ -26,18 +25,18 @@ export default class PayloadMiddleware {
 
     let hash = await next();
 
-    if(ctx.deserialize === false) {
+    if (ctx.deserialize === false) {
       return hash;
     }
 
     let primaryPayload;
 
-    for(var key in hash) {
+    for (var key in hash) {
       let value = hash[key];
 
-      if(key === 'meta' || key === 'error') {
+      if (key === 'meta' || key === 'error') {
         // TODO
-      } else if(this.isPrimaryKey(entity, key)) {
+      } else if (this.isPrimaryKey(entity, key)) {
         primaryPayload = value;
       } else {
         this.sideload(key, value, session);
@@ -48,21 +47,21 @@ export default class PayloadMiddleware {
   }
 
   sideload(key, value, session) {
-    if(!Array.isArray(value)) {
+    if (!Array.isArray(value)) {
       value = [value];
     }
     let graph = this.container.get(Graph);
     let type = this.typeFor(key);
     let serializer = this.container.serializerFor(type);
-    for(var hash of value) {
+    for (var hash of value) {
       hash.type = hash.type || type.typeKey;
-      let entity = serializer.deserialize(hash, graph, {type});
+      let entity = serializer.deserialize(hash, graph, { type });
       session.merge(entity);
     }
   }
 
   isPrimaryKey(entity, key) {
-    if(entity.isQuery) {
+    if (entity.isQuery) {
       return key === pluralize(entity.type.typeKey);
     } else {
       return key === entity.typeKey;
@@ -73,5 +72,4 @@ export default class PayloadMiddleware {
     key = singularize(key);
     return this.container.typeFor(key);
   }
-
 }
